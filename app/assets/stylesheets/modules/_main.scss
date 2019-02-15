@@ -1,0 +1,19 @@
+@import "./mixin/gd";
+@import "./mixin/gc";
+@import "./mixin/form";
+
+
+  .main-content{
+    width:calc(100% - 300px);
+    float: left;
+    .group-detail{
+      @include gd()
+    }
+    .group-chats{
+      @include gc()
+    }
+    .form{
+      @include form()
+    }
+  }
+
