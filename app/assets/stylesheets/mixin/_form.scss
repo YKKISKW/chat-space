@@ -1,0 +1,34 @@
+@mixin form(){
+&{
+      height: 90px;
+      padding:20px 40px;
+      width: 100%;
+      background-color:#DDD;
+      box-sizing:border-box;
+      display: flex;
+          .form-area{
+            position: relative;
+            &__text{
+            width: 950px;
+            height: 50px;
+            padding-left:10px;
+          }
+            &__image{
+            position: absolute;
+            right: 10px;
+            top:10px;
+              &--file{
+              display: none;
+            }
+          }
+        }
+      &__send{
+      width:100px;
+      height: 50px;
+      background-color:$skyblue;
+      margin-left: 15px;
+      color: $white;
+      padding: 0 20px;
+    }
+    }
+  }
