@@ -1,13 +1,13 @@
 %div.chat-side
   %div.side-header
     %div.side-header__box
-      %div.side-header__box__name
+      %div.side-header__box--name
         %p Sample
-      %ul.side-header__box__icon
-        %li.side-header__box__icon__edit
+      %ul.side-header__box--icon
+        %li
           %a.linkwhite{href:"https://www.google.co.jp/"}
             %i.fa.fa-edit
-        %li.side-header__box__icon__cog
+        %li.side-header__box--icon-cog
           %a.linkwhite{href:"https://www.google.co.jp/"}
             %i.fa.fa-cog
   %div.side-down
@@ -18,21 +18,21 @@
 %div.main-content
   %div.group-detail
     %dev.group-detail__list
-      %h1.group-detail__list__name Sample
-      %p.group-detail__list__member Member : sample
+      %h1.group-detail__list--name Sample
+      %p.group-detail__list--member Member : sample
     %a.linkwhite{href:"https://www.google.co.jp/"}
       %div.group-detail__edit Edit
   %div.group-chats
     %div.group-chat
       %div.group-chat__head
-        %p.group-chat__head__user-name Sample
-        %p.group-chat__head__date 2019/02/12(Tue) 14:58:11
+        %p.group-chat__head--user-name Sample
+        %p.group-chat__head--date 2019/02/12(Tue) 14:58:11
       %p.group_chat__text aaaaaaaaaaaaaa
   %div.form
     %form.form-area
       %input.form-area__text{type:"text",name: "text", size:"40",placeholder:"type a message"}
       %label.form-area__image{for:"image_icon"}
         %i.fa.fa-image
-        %input.form-area__image__file{type:"file",name:"image",id:"image_icon"}
-    %input.form-area__send{type:"submit",name:"submit",value:"Send"}
+        %input.form-area__image--file{type:"file",name:"image",id:"image_icon"}
+    %input.form__send{type:"submit",name:"submit",value:"Send"}
 
