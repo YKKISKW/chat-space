@@ -7,11 +7,13 @@
         %li
           / %a.linkwhite{href:"https://www.google.co.jp/"}
           = link_to edit_user_path(current_user) do
-            = fa_icon 'cog', class: 'icon'
-            %i.fa.fa-edit
-        %li.side-header__box--icon-cog
-          %a.linkwhite{href:"https://www.google.co.jp/"}
-            %i.fa.fa-cog
+            = fa_icon 'edit', class: 'icon linkwhite'
+          = link_to edit_user_path(current_user) do
+            = fa_icon 'cog', class: 'icon linkwhite'
+            / %i.fa.fa-edit
+        / %li.side-header__box--icon-cog
+        /   %a.linkwhite{href:"https://www.google.co.jp/"}
+        /     %i.fa.fa-cog
   %div.side-down
     %div.group
       %p.group__group-name Sample
