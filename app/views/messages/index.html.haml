@@ -1,40 +1,44 @@
-%div.chat-side
-  %div.side-header
-    %div.side-header__box
-      %div.side-header__box--name
-        %p Sample
-      %ul.side-header__box--icon
-        %li
-          %a.linkwhite{href:"https://www.google.co.jp/"}
-            %i.fa.fa-edit
-          = link_to new_group_path do
-            = fa_icon 'cog', class: 'icon linkwhite'
-        / %li.side-header__box--icon-cog
-        /   %a.linkwhite{href:"https://www.google.co.jp/"}
-        /     %i.fa.fa-cog
-  %div.side-down
-    %div.group
-      %p.group__group-name Sample
-      %p.group__group-message Sample
+/ %div.chat-side
+/   %div.side-header
+/     %div.side-header__box
+/       %div.side-header__box--name
+/         %p Sample
+/       %ul.side-header__box--icon
+/         %li
+/           %a.linkwhite{href:"https://www.google.co.jp/"}
+/             %i.fa.fa-edit
+/           = link_to new_group_path do
+/             = fa_icon 'cog', class: 'icon linkwhite'
+/         / %li.side-header__box--icon-cog
+/         /   %a.linkwhite{href:"https://www.google.co.jp/"}
+/         /     %i.fa.fa-cog
+/   %div.side-down
+/     %div.group
+/       %p.group__group-name Sample
+/       %p.group__group-message Sample
+
+= render "devise/shared/side_bar"
 
 %div.main-content
   %div.group-detail
     %dev.group-detail__list
-      %h1.group-detail__list--name Sample
-      %p.group-detail__list--member Member : sample
-    %a.linkwhite{href:"https://www.google.co.jp/"}
-      %div.group-detail__edit Edit
-  %div.group-chats
-    %div.group-chat
-      %div.group-chat__head
-        %p.group-chat__head--user-name Sample
-        %p.group-chat__head--date 2019/02/12(Tue) 14:58:11
-      %p.group_chat__text aaaaaaaaaaaaaa
-  %div.form
-    %form.form-area
-      %input.form-area__text{type:"text",name: "text", size:"40",placeholder:"type a message"}
-      %label.form-area__image{for:"image_icon"}
-        %i.fa.fa-image
-        %input.form-area__image--file{type:"file",name:"image",id:"image_icon"}
-    %input.form__send{type:"submit",name:"submit",value:"Send"}
+      %h1.group-detail__list--name
+        = @group.name
+      %p.group-detail__list--member
+        Menbers :
+        - @group.group_users.each do |member|
+          = member.user.name
 
+
+    = link_to "Edit", edit_group_path(@group),class: "group-detail__edit Edit"
+  %div.group-chats
+    = render @messages
+  .form
+    = form_for [@group, @message] do |f|
+      .form-all
+        .form-area
+          = f.text_field :body, class: 'form-area__text', placeholder: 'type a message'
+          = f.label :image, class: 'form-area__image' do
+            = fa_icon 'picture-o', class: 'fa-image'
+            = f.file_field :image,class: 'form-area__image--file'
+        = f.submit 'Send', class: 'form-all__send'
