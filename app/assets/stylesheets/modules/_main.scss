@@ -13,6 +13,7 @@
       @include gc()
     }
     .form{
+      display: flex;
       @include form()
     }
   }
