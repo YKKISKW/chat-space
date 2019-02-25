@@ -1,10 +1,10 @@
-%div.group-chat
-  %div.group-chat__head
+.group-chat
+  .group-chat__head
     %p.group-chat__head--user-name
       = message.user.name
     %p.group-chat__head--date
       = message.created_at
-  %div.group-chat_lower
+  .group-chat_lower
     %p.group-chat_lower--text
       = message.body if message.body?
       = image_tag message.image.url,class: "group-chat__image" if message.image.present?

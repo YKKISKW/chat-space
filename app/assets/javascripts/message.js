@@ -1,40 +1,41 @@
 $(document).on('turbolinks:load',function() {
 
   function buildHtml(message){
-    var html_text = `<div class = "group-chat">
-                      <div class = "group-chat__head">
-                        <p class = "group-chat__head--user-name">
-                          ${message.user_name}
-                        </p>
-                        <p class = "group-chat__head--date">
-                          ${message.created_at}
-                        </p>
-                      </div>
-                      <div class = "group-chat_lower">
-                        <p class = "group-chat_lower--text">
-                         ${message.body}
-                         </p>
-                       </div>
-                    </div>`
-    var html_image = `<div class = "group-chat">
-                        <div class = "group-chat__head">
-                          <p class = "group-chat__head--user-name">
-                            ${message.user_name}
-                          </p>
-                          <p class = "group-chat__head--date">
-                             ${message.created_at}
-                          </p>
-                        </div>
-                        <div class = "group-chat_lower">
-                          <p class = "group-chat_lower--text">
-                            <img class = "group-chat__image" src = "${message.image.url}" >
-                          </p>
-                        </div>
-                     </div>`
-    if (message.image !== null){
-      html = html_image;
-    } else {
+    if (message.image.url === null){
+        var html_text = `<div class = "group-chat">
+                          <div class = "group-chat__head">
+                            <p class = "group-chat__head--user-name">
+                              ${message.user_name}
+                            </p>
+                            <p class = "group-chat__head--date">
+                              ${message.created_at}
+                            </p>
+                          </div>
+                          <div class = "group-chat_lower">
+                            <p class = "group-chat_lower--text">
+                             ${message.body}
+                            </p>
+                           </div>
+                        </div>`
+
       html = html_text;
+    } else {
+      var html_image = `<div class = "group-chat">
+                          <div class = "group-chat__head">
+                            <p class = "group-chat__head--user-name">
+                              ${message.user_name}
+                            </p>
+                            <p class = "group-chat__head--date">
+                               ${message.created_at}
+                            </p>
+                          </div>
+                          <div class = "group-chat_lower">
+                            <p class = "group-chat_lower--text">
+                              <img class = "group-chat__image" src = "${message.image.url}" >
+                            </p>
+                          </div>
+                       </div>`
+      html = html_image;
     }
     return html;
   }
@@ -55,8 +56,8 @@ $(document).on('turbolinks:load',function() {
     })
     .done(function(data){
       var html = buildHtml(data)
-          $('.group-chats').append(html)
-          $('.form-area__text').val('')
+      $('.group-chats').append(html)
+      $('form')[0].reset()
     })
     .fail(function(){
       alert('error');
