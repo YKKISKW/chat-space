@@ -34,7 +34,6 @@ class GroupsController < ApplicationController
 
   def set_group
     @group = Group.find(params[:id])
-    binding.pry
   end
 
 end
