@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load',function() {
 
-  function buildHtml(message){
+  function buildSendMessageHTML(message){
     if (message.image.url === null){
         var html_text = `<div class = "group-chat" data-id="${message.id}">
                           <div class = "group-chat__head">
@@ -40,26 +40,32 @@ $(document).on('turbolinks:load',function() {
     return html;
   }
 
-  function update(){
-      var message_id = $('.group-chat:last').data('id');
+  function indexUpdate(){
+    message = $('.group-chat');
+if(message !== 0){
+    var lastMessageId = $('.group-chat:last').data('id');
+    } else {
+      var lastMessageId = 0
+    }
+
     $.ajax({
       url: location.href,
       type: "GET",
       data: {
-        message: { id: message_id }
+        message: { id: lastMessageId }
       },
       dataType: 'json'
     })
-    .always(function(data){
-      $.each(data, function(i, data){
-        buildHtml(data);
+    .always(function(newMessage){
+      $.each(newMessage, function(i, newMessage){
+        buildSendMessageHTML(newMessage);
         $('.group-chats').append(html)
       });
     })
   }
 
   $(function(){
-    setInterval(update, 5000);
+    setInterval(indexUpdate, 5000);
   });
 
 
@@ -78,7 +84,7 @@ $(document).on('turbolinks:load',function() {
       contentType: false
     })
     .done(function(data){
-      var html = buildHtml(data)
+      var html = buildSendMessageHTML(data)
       $('.group-chats').append(html)
       $('form')[0].reset()
     })
