@@ -40,7 +40,7 @@ $(document).on('turbolinks:load',function() {
     return html;
   }
 
-  function indexUpdate(){
+  function messageViewUpdate(){
     message = $('.group-chat');
 if(message !== 0){
     var lastMessageId = $('.group-chat:last').data('id');
@@ -65,7 +65,7 @@ if(message !== 0){
   }
 
   $(function(){
-    setInterval(indexUpdate, 5000);
+    setInterval(messageViewUpdate, 5000);
   });
 
 
