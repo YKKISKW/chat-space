@@ -2,7 +2,7 @@ $(document).on('turbolinks:load',function() {
 
   function buildHtml(message){
     if (message.image.url === null){
-        var html_text = `<div class = "group-chat">
+        var html_text = `<div class = "group-chat" data-id="${message.id}">
                           <div class = "group-chat__head">
                             <p class = "group-chat__head--user-name">
                               ${message.user_name}
@@ -20,7 +20,7 @@ $(document).on('turbolinks:load',function() {
 
       html = html_text;
     } else {
-      var html_image = `<div class = "group-chat">
+      var html_image = `<div class = "group-chat" data-id="${message.id}">
                           <div class = "group-chat__head">
                             <p class = "group-chat__head--user-name">
                               ${message.user_name}
@@ -39,6 +39,29 @@ $(document).on('turbolinks:load',function() {
     }
     return html;
   }
+
+  function update(){
+      var message_id = $('.group-chat:last').data('id');
+    $.ajax({
+      url: location.href,
+      type: "GET",
+      data: {
+        message: { id: message_id }
+      },
+      dataType: 'json'
+    })
+    .always(function(data){
+      $.each(data, function(i, data){
+        buildHtml(data);
+        $('.group-chats').append(html)
+      });
+    })
+  }
+
+  $(function(){
+    setInterval(update, 5000);
+  });
+
 
 
 
