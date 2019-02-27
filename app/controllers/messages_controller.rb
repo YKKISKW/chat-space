@@ -3,6 +3,10 @@ before_action :set_group
 
   def index
     @messages = @group.messages.includes(:user)
+      respond_to do |format|
+        format.html
+        format.json{ @new_message =  @group.messages.where('id > ?', params[:message][:id]) }
+      end
     @message = Message.new
   end
 

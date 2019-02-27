@@ -1,8 +1,8 @@
 $(document).on('turbolinks:load',function() {
 
-  function buildHtml(message){
+  function buildSendMessageHTML(message){
     if (message.image.url === null){
-        var html_text = `<div class = "group-chat">
+        var html_text = `<div class = "group-chat" data-id="${message.id}">
                           <div class = "group-chat__head">
                             <p class = "group-chat__head--user-name">
                               ${message.user_name}
@@ -20,7 +20,7 @@ $(document).on('turbolinks:load',function() {
 
       html = html_text;
     } else {
-      var html_image = `<div class = "group-chat">
+      var html_image = `<div class = "group-chat" data-id="${message.id}">
                           <div class = "group-chat__head">
                             <p class = "group-chat__head--user-name">
                               ${message.user_name}
@@ -40,6 +40,35 @@ $(document).on('turbolinks:load',function() {
     return html;
   }
 
+  function indexUpdate(){
+    message = $('.group-chat');
+if(message !== 0){
+    var lastMessageId = $('.group-chat:last').data('id');
+    } else {
+      var lastMessageId = 0
+    }
+
+    $.ajax({
+      url: location.href,
+      type: "GET",
+      data: {
+        message: { id: lastMessageId }
+      },
+      dataType: 'json'
+    })
+    .always(function(newMessage){
+      $.each(newMessage, function(i, newMessage){
+        buildSendMessageHTML(newMessage);
+        $('.group-chats').append(html)
+      });
+    })
+  }
+
+  $(function(){
+    setInterval(indexUpdate, 5000);
+  });
+
+
 
 
   $("#new_message").submit(function(e){
@@ -55,7 +84,7 @@ $(document).on('turbolinks:load',function() {
       contentType: false
     })
     .done(function(data){
-      var html = buildHtml(data)
+      var html = buildSendMessageHTML(data)
       $('.group-chats').append(html)
       $('form')[0].reset()
     })
